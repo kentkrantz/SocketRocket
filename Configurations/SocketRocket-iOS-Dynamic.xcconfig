@@ -8,10 +8,16 @@
 //
 
 #include "Shared/Platform/iOS.xcconfig"
-#include "Shared/Product/DynamicFramework.xcconfig"
+#include "Shared/Product/StaticFramework.xcconfig"
 
 PRODUCT_NAME = SocketRocket
 PRODUCT_BUNDLE_IDENTIFIER = com.facebook.socketrocket.ios
 IPHONEOS_DEPLOYMENT_TARGET = 11.0
 
 INFOPLIST_FILE = $(SRCROOT)/SocketRocket/Resources/Info.plist
+
+OTHER_CFLAGS[sdk=iphoneos9.*] = $(inherited) -fembed-bitcode
+OTHER_LDFLAGS = $(inherited) -Licucore
+
+// Specify architectures
+ARCHS = arm64 arm64e
